@@ -12,6 +12,7 @@ type Feed struct {
 	UpdatedAt time.Time `json:"updated_at"`
 	URL       string    `json:"url"`
 	Name      string    `json:"name"`
+	ErrorMsg  string    `json:"error"`
 }
 
 type CreateFeed struct {
