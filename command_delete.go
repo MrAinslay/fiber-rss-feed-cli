@@ -41,6 +41,10 @@ func commandDelete(cfg *ApiConfig, s string) error {
 
 		log.Println(params.Message)
 	case "feed":
+		if len(splitString) < 2 {
+			return errors.New("not enough arguments")
+		}
+
 		req, err := http.NewRequest("DELETE", fmt.Sprintf("%s/feeds/%s", cfg.ApiClient.BaseURL, splitString[1]), bytes.NewReader([]byte("")))
 		if err != nil {
 			return err
@@ -65,6 +69,10 @@ func commandDelete(cfg *ApiConfig, s string) error {
 
 		log.Println(params.Message)
 	case "feed_follow":
+		if len(splitString) < 2 {
+			return errors.New("not enough arguments")
+		}
+
 		req, err := http.NewRequest("DELETE", fmt.Sprintf("%s/feed-follows/%s", cfg.ApiClient.BaseURL, splitString[1]), bytes.NewReader([]byte("")))
 		if err != nil {
 			return err
@@ -89,6 +97,10 @@ func commandDelete(cfg *ApiConfig, s string) error {
 
 		log.Printf(params.Message)
 	case "post-like":
+		if len(splitString) < 2 {
+			return errors.New("not enough arguments")
+		}
+
 		req, err := http.NewRequest("DELETE", fmt.Sprintf("%s/post-likes/%s", cfg.ApiClient.BaseURL, splitString[1]), bytes.NewReader([]byte("")))
 		if err != nil {
 			return err
