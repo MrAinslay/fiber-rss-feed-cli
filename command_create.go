@@ -28,7 +28,6 @@ func commandCreate(cfg *ApiConfig, s string) error {
 			return nil
 		}
 		if err := decoder.Decode(&params); err != nil {
-			log.Println(rsp.Body)
 			log.Println(err)
 		}
 
