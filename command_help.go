@@ -1,13 +1,15 @@
 package main
 
-import "log"
+import (
+	"fmt"
+)
 
 func commandHelp(cfg *ApiConfig, s string) error {
-	log.Println("\nWelcome to Fiber RSS Feed \nUsage:")
-	log.Println("")
+	fmt.Println("\nWelcome to Fiber RSS Feed \nUsage:")
+	fmt.Println("")
 	for _, cmd := range getCommands() {
-		log.Printf("%s: %s\n", cmd.name, cmd.description)
+		fmt.Printf("%s: %s\n", cmd.name, cmd.description)
 	}
-	log.Println("")
+	fmt.Println("")
 	return nil
 }

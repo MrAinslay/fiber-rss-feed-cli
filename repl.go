@@ -88,7 +88,7 @@ func getCommands() map[string]cliCommand {
 		},
 		"login": {
 			name:        "login",
-			description: "Login as a user(usage: login <NAME> <PASSWORD>)",
+			description: "Login as a user and sets the api key\n(usage: login <NAME> <PASSWORD>)",
 			callback:    commandLogin,
 		},
 		"set": {
