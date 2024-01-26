@@ -106,5 +106,10 @@ func getCommands() map[string]cliCommand {
 			description: "Update information of a user\n(usage: update user <NAME> <PASSWORD)",
 			callback:    commandUpdate,
 		},
+		"delete": {
+			name:        "delete",
+			description: "Delete user, feed, feed follow or post like\n(usage: delete user/feed/feed-follow/post-like <FEED_ID/FEED_FOLLOW_ID/POST_LIKE_ID>)",
+			callback:    commandDelete,
+		},
 	}
 }
