@@ -45,16 +45,18 @@ func commandGet(cfg *ApiConfig, s string) error {
 
 		decoder := json.NewDecoder(rsp.Body)
 
-		params := api.Feed{}
+		params := []api.Feed{}
 		if err := decoder.Decode(&params); err != nil {
 			return err
 		}
 
-		if params.ErrorMsg != "" {
-			return errors.New(params.ErrorMsg)
+		if params[0].ErrorMsg != "" {
+			return errors.New(params[0].ErrorMsg)
 		}
 
-		log.Printf("\n\nID: %s\nCreated At: %s\nURL: %s\nName: %s\n\n", params.Id, params.CreatedAt, params.Name, params.URL)
+		for _, feed := range params {
+			log.Printf("\n\nID: %s\nCreated At: %s\nURL: %s\nName: %s\n\n", feed.Id, feed.CreatedAt, feed.Name, feed.URL)
+		}
 	case "post":
 		req, err := http.NewRequest("GET", fmt.Sprintf("%s/posts", cfg.ApiClient.BaseURL), bytes.NewReader([]byte("")))
 		if err != nil {
@@ -69,16 +71,70 @@ func commandGet(cfg *ApiConfig, s string) error {
 		}
 
 		decoder := json.NewDecoder(rsp.Body)
-		params := api.Post{}
+		params := []api.Post{}
 		if err := decoder.Decode(&params); err != nil {
 			return err
 		}
 
-		if params.ErrorMsg != "" {
-			return errors.New(params.ErrorMsg)
+		if params[0].ErrorMsg != "" {
+			return errors.New(params[0].ErrorMsg)
 		}
 
-		log.Printf("\n\nID: %s\nCreated At: %s\nTitle: %s\nURL: %s\nDescription: %s\nPublished At: %s\nFeed ID: %s\n", params.Id, params.CreatedAt, params.Title, params.URL, params.Description, params.PublishedAt, params.FeedID)
+		for _, post := range params {
+			log.Printf("\n\nID: %s\nCreated At: %s\nTitle: %s\nURL: %s\nDescription: %s\nPublished At: %s\nFeed ID: %s\n", post.Id, post.CreatedAt, post.Title, post.URL, post.Description, post.PublishedAt, post.FeedID)
+		}
+	case "feed-follows":
+		req, err := http.NewRequest("GET", fmt.Sprintf("%s/feed-follows", cfg.ApiClient.BaseURL), bytes.NewReader([]byte("")))
+		if err != nil {
+			return err
+		}
+
+		req.Header.Set("Authorization", cfg.ApiKey)
+
+		rsp, err := cfg.ApiClient.HttpClient.Do(req)
+		if err != nil {
+			return err
+		}
+
+		decoder := json.NewDecoder(rsp.Body)
+		params := []api.Feed{}
+		if err := decoder.Decode(&params); err != nil {
+			return err
+		}
+
+		if params[0].ErrorMsg != "" {
+			return errors.New(params[0].ErrorMsg)
+		}
+
+		for _, feed := range params {
+			log.Printf("\n\nID: %s\nCreated At: %s\nURL: %s\nName: %s\n\n", feed.Id, feed.CreatedAt, feed.Name, feed.URL)
+		}
+	case "post-likes":
+		req, err := http.NewRequest("GET", fmt.Sprintf("%s/post-likes", cfg.ApiClient.BaseURL), bytes.NewReader([]byte("")))
+		if err != nil {
+			return err
+		}
+
+		req.Header.Set("Authorization", cfg.ApiKey)
+
+		rsp, err := cfg.ApiClient.HttpClient.Do(req)
+		if err != nil {
+			return err
+		}
+
+		decoder := json.NewDecoder(rsp.Body)
+		params := []api.Post{}
+		if err := decoder.Decode(&params); err != nil {
+			return err
+		}
+
+		if params[0].ErrorMsg != "" {
+			return errors.New(params[0].ErrorMsg)
+		}
+
+		for _, post := range params {
+			log.Printf("\n\nID: %s\nCreated At: %s\nTitle: %s\nURL: %s\nDescription: %s\nPublished At: %s\nFeed ID: %s\n", post.Id, post.CreatedAt, post.Title, post.URL, post.Description, post.PublishedAt, post.FeedID)
+		}
 	}
 	return nil
 }
