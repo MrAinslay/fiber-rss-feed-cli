@@ -70,10 +70,20 @@ func getCommands() map[string]cliCommand {
 			description: "Displays a help message",
 			callback:    commandHelp,
 		},
+		"exit": {
+			name:        "exit",
+			description: "Closes the CLI",
+			callback:    commandExit,
+		},
 		"create": {
 			name:        "create",
 			description: "Creates either a user or a feed depending on the selected option",
 			callback:    commandCreate,
 		},
+		"set": {
+			name: "set",
+			description: "Set API Key for commands that need authorization\n(usage: set <API_KEY>)",
+			callback: commandSet,
+		}
 	}
 }
