@@ -96,5 +96,10 @@ func getCommands() map[string]cliCommand {
 			description: "Set API Key for commands that need authorization\n(usage: set apikey <API_KEY>)",
 			callback:    commandSet,
 		},
+		"get": {
+			name:        "get",
+			description: "Get feeds, posts, feed follows, post likes or user information",
+			callback:    commandGet,
+		},
 	}
 }
