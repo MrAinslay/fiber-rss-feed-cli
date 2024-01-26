@@ -1,11 +1,18 @@
 package main
 
-import "errors"
+import (
+	"errors"
+	"strings"
+)
 
 func commandSet(cfg *ApiConfig, s string) error {
-	if s == "" {
-		return errors.New("invalid api key")
+	splitString := strings.Split(s, " ")
+	switch splitString[1] {
+	case "apikey":
+		if splitString[2] == "" {
+			return errors.New("invalid api key")
+		}
+		cfg.ApiKey = splitString[2]
 	}
-	cfg.ApiKey = s
 	return nil
 }

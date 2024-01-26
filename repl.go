@@ -45,11 +45,17 @@ func startRepl(cfg *ApiConfig) {
 				if err != nil {
 					log.Println(err)
 				}
+			} else if len(splitText) == 3 {
+				err := command.callback(cfg, fmt.Sprintf("%s %s", splitText[1], splitText[2]))
+				if err != nil {
+					log.Println(err)
+				}
 			} else if len(splitText) > 1 {
 				err := command.callback(cfg, splitText[1])
 				if err != nil {
 					log.Println(err)
 				}
+
 			} else {
 				err := command.callback(cfg, splitText[0])
 				if err != nil {
@@ -80,9 +86,14 @@ func getCommands() map[string]cliCommand {
 			description: "Creates either a user or a feed depending on the selected option",
 			callback:    commandCreate,
 		},
+		"login": {
+			name:        "login",
+			description: "Login as a user(usage: login <NAME> <PASSWORD>)",
+			callback:    commandLogin,
+		},
 		"set": {
 			name:        "set",
-			description: "Set API Key for commands that need authorization\n(usage: set <API_KEY>)",
+			description: "Set API Key for commands that need authorization\n(usage: set apikey <API_KEY>)",
 			callback:    commandSet,
 		},
 	}
