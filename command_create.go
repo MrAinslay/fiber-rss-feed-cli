@@ -20,20 +20,15 @@ func commandCreate(cfg *ApiConfig, s string) error {
 			log.Println(err)
 		}
 
-		errRsp := rsp.Body
-
-		errDecoder := json.NewDecoder(errRsp)
 		decoder := json.NewDecoder(rsp.Body)
-		errParams := api.ErrorResponse{}
 		params := api.User{}
-		if err := errDecoder.Decode(&errParams); err == nil {
-			if errParams.ErrorMsg != "" {
-				log.Println(errParams.ErrorMsg)
-				return nil
-			}
-		}
 		if err := decoder.Decode(&params); err != nil {
 			log.Println(err)
+		}
+
+		if params.ErroMsg != "" {
+			log.Println(params.ErroMsg)
+			return nil
 		}
 
 		log.Printf("\nID: %s\nCreated At: %s\nName: %s\nApi Key: %s\n", params.ID, params.CreatedAt, params.Name, params.APIKey)

@@ -10,6 +10,7 @@ type User struct {
 	UpdatedAt time.Time `json:"updated_at"`
 	Name      string    `json:"name"`
 	APIKey    string    `json:"api_key"`
+	ErroMsg   string    `json:"error"`
 }
 
 type CreateUser struct {
