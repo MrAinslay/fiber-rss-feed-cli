@@ -81,9 +81,9 @@ func getCommands() map[string]cliCommand {
 			callback:    commandCreate,
 		},
 		"set": {
-			name: "set",
+			name:        "set",
 			description: "Set API Key for commands that need authorization\n(usage: set <API_KEY>)",
-			callback: commandSet,
-		}
+			callback:    commandSet,
+		},
 	}
 }
