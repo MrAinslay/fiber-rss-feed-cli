@@ -14,4 +14,5 @@ type Post struct {
 	Description string    `json:"description"`
 	PublishedAt time.Time `json:"published_at"`
 	FeedID      uuid.UUID `json:"feed_id"`
+	ErrorMsg    string    `json:"error"`
 }

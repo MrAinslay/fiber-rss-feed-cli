@@ -37,6 +37,32 @@ func commandGet(cfg *ApiConfig, s string) error {
 			return errors.New(params.ErroMsg)
 		}
 		log.Printf("\n\nID: %s\nCreated At: %s\nName: %s\nApi Key: %s\n\n", params.Id, params.CreatedAt, params.Name, params.ApiKey)
+	case "feed":
+		rsp, err := cfg.ApiClient.HttpClient.Get(fmt.Sprintf("%s/feeds", cfg.ApiKey))
+		if err != nil {
+			return err
+		}
+
+		decoder := json.NewDecoder(rsp.Body)
+
+		params := api.Feed{}
+		if err := decoder.Decode(&params); err != nil {
+			return err
+		}
+
+		if params.ErrorMsg != "" {
+			return errors.New(params.ErrorMsg)
+		}
+
+		log.Printf("\n\nID: %s\nCreated At: %s\nURL: %s\nName: %s\n\n", params.Id, params.CreatedAt, params.Name, params.URL)
+	case "post":
+		rsp, err := cfg.ApiClient.HttpClient.Get(fmt.Sprintf("%s/posts", cfg.ApiClient.BaseURL))
+		if err != nil {
+			return err
+		}
+
+		decoder := json.NewDecoder(rsp.Body)
+		params := api.Post{}
 	}
 	return nil
 }
