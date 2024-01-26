@@ -135,6 +135,27 @@ func commandGet(cfg *ApiConfig, s string) error {
 		for _, post := range params {
 			log.Printf("\n\nID: %s\nCreated At: %s\nTitle: %s\nURL: %s\nDescription: %s\nPublished At: %s\nFeed ID: %s\n", post.Id, post.CreatedAt, post.Title, post.URL, post.Description, post.PublishedAt, post.FeedID)
 		}
+	case "feed-id":
+		if len(splitString) < 2 {
+			return errors.New("not enough arguments")
+		}
+
+		rsp, err := cfg.ApiClient.HttpClient.Get(fmt.Sprintf("%s/feeds/%s", cfg.ApiClient.BaseURL, splitString[1]))
+		if err != nil {
+			return err
+		}
+
+		decoder := json.NewDecoder(rsp.Body)
+		params := api.Feed{}
+		if err := decoder.Decode(&params); err != nil {
+			return err
+		}
+
+		if params.ErrorMsg != "" {
+			return errors.New(params.ErrorMsg)
+		}
+
+		log.Printf("\n\nID: %s\nCreated At: %s\nURL: %s\nName: %s\n\n", params.Id, params.CreatedAt, params.Name, params.URL)
 	}
 	return nil
 }
