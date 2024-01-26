@@ -56,7 +56,14 @@ func commandGet(cfg *ApiConfig, s string) error {
 
 		log.Printf("\n\nID: %s\nCreated At: %s\nURL: %s\nName: %s\n\n", params.Id, params.CreatedAt, params.Name, params.URL)
 	case "post":
-		rsp, err := cfg.ApiClient.HttpClient.Get(fmt.Sprintf("%s/posts", cfg.ApiClient.BaseURL))
+		req, err := http.NewRequest("GET", fmt.Sprintf("%s/posts", cfg.ApiClient.BaseURL), bytes.NewReader([]byte("")))
+		if err != nil {
+			return err
+		}
+
+		req.Header.Set("Authorization", fmt.Sprintf("ApiKey %s", cfg.ApiKey))
+
+		rsp, err := cfg.ApiClient.HttpClient.Do(req)
 		if err != nil {
 			return err
 		}
