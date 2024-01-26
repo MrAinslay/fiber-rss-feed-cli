@@ -101,5 +101,10 @@ func getCommands() map[string]cliCommand {
 			description: "Get feeds, posts, feed follows, post likes or user information",
 			callback:    commandGet,
 		},
+		"update": {
+			name:        "update",
+			description: "Update information of a user\n(usage: update user <NAME> <PASSWORD)",
+			callback:    commandUpdate,
+		},
 	}
 }

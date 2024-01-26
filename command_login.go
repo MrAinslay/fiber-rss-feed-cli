@@ -31,6 +31,8 @@ func commandLogin(cfg *ApiConfig, s string) error {
 		return errors.New(params.ErroMsg)
 	}
 
+	cfg.ApiKey = params.ApiKey
+	log.Printf("Set API key to %s", params.ApiKey)
 	log.Printf("\n\nID: %s\nCreated At: %s\nName: %s\nApi Key: %s\n\n", params.Id, params.CreatedAt, params.Name, params.ApiKey)
 	return nil
 }
