@@ -63,6 +63,15 @@ func commandGet(cfg *ApiConfig, s string) error {
 
 		decoder := json.NewDecoder(rsp.Body)
 		params := api.Post{}
+		if err := decoder.Decode(&params); err != nil {
+			return err
+		}
+
+		if params.ErrorMsg != "" {
+			return errors.New(params.ErrorMsg)
+		}
+
+		log.Printf("\n\nID: %s\nCreated At: %s\nTitle: %s\nURL: %s\nDescription: %s\nPublished At: %s\nFeed ID: %s\n", params.Id, params.CreatedAt, params.Title, params.URL, params.Description, params.PublishedAt, params.FeedID)
 	}
 	return nil
 }
