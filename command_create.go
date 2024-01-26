@@ -33,7 +33,7 @@ func commandCreate(cfg *ApiConfig, s string) error {
 			return errors.New(params.ErroMsg)
 		}
 
-		log.Printf("\n\nID: %s\nCreated At: %s\nName: %s\nApi Key: %s\n\n", params.ID, params.CreatedAt, params.Name, params.APIKey)
+		log.Printf("\n\nID: %s\nCreated At: %s\nName: %s\nApi Key: %s\n\n", params.Id, params.CreatedAt, params.Name, params.ApiKey)
 	case "feed":
 		jsonBody := []byte(fmt.Sprintf(`{"name": "%s", "url": "%s"}`, splitString[1], splitString[2]))
 		bodyReader := bytes.NewReader(jsonBody)
