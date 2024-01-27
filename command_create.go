@@ -43,6 +43,7 @@ func commandCreate(cfg *ApiConfig, s string) error {
 			return err
 		}
 
+		req.Header.Set("Content-Type", "application/json")
 		req.Header.Set("Authorization", fmt.Sprintf("ApiKey %s", cfg.ApiKey))
 
 		rsp, err := cfg.ApiClient.HttpClient.Do(req)
