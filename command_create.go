@@ -37,7 +37,15 @@ func commandCreate(cfg *ApiConfig, s string) error {
 	case "feed":
 		jsonBody := []byte(fmt.Sprintf(`{"name": "%s", "url": "%s"}`, splitString[1], splitString[2]))
 		bodyReader := bytes.NewReader(jsonBody)
-		rsp, err := cfg.ApiClient.HttpClient.Post(fmt.Sprintf("%s/feeds", cfg.ApiClient.BaseURL), "application/json", bodyReader)
+
+		req, err := http.NewRequest("POST", fmt.Sprintf("%s/feeds", cfg.ApiClient.BaseURL), bodyReader)
+		if err != nil {
+			return err
+		}
+
+		req.Header.Set("Auhtorization", fmt.Sprintf("ApiKey %s", cfg.ApiKey))
+
+		rsp, err := cfg.ApiClient.HttpClient.Do(req)
 		if err != nil {
 			return err
 		}
@@ -66,7 +74,7 @@ func commandCreate(cfg *ApiConfig, s string) error {
 		}
 
 		req.Header.Set("Content-Type", "application/json")
-		req.Header.Set("Authorization", cfg.ApiKey)
+		req.Header.Set("Auhtorization", fmt.Sprintf("ApiKey %s", cfg.ApiKey))
 
 		rsp, err := cfg.ApiClient.HttpClient.Do(req)
 		if err != nil {
@@ -97,7 +105,7 @@ func commandCreate(cfg *ApiConfig, s string) error {
 		}
 
 		req.Header.Set("Content-Type", "application/json")
-		req.Header.Set("Authorization", cfg.ApiKey)
+		req.Header.Set("Auhtorization", fmt.Sprintf("ApiKey %s", cfg.ApiKey))
 
 		rsp, err := cfg.ApiClient.HttpClient.Do(req)
 		if err != nil {
