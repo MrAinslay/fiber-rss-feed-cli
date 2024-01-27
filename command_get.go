@@ -38,7 +38,7 @@ func commandGet(cfg *ApiConfig, s string) error {
 		}
 		fmt.Printf("\n\nID: %s\nCreated At: %s\nName: %s\nApi Key: %s\n\n", params.Id, params.CreatedAt, params.Name, params.ApiKey)
 	case "feeds":
-		rsp, err := cfg.ApiClient.HttpClient.Get(fmt.Sprintf("%s/feeds", cfg.ApiKey))
+		rsp, err := cfg.ApiClient.HttpClient.Get(fmt.Sprintf("%s/feeds", cfg.ApiClient.BaseURL))
 		if err != nil {
 			return err
 		}
