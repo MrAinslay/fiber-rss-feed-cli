@@ -98,7 +98,7 @@ func getCommands() map[string]cliCommand {
 		},
 		"get": {
 			name:        "get",
-			description: "Get feeds, posts, feed follows, post likes or user information",
+			description: "Get feeds, posts, feed follows, post likes or user information\n(usage: get user/feeds/posts/feed-id/feed-follows/post-likes <FEED_ID>)\nSet <FEED_ID> argument only if you want to get a single feed the rest need an API key set",
 			callback:    commandGet,
 		},
 		"update": {

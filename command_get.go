@@ -36,7 +36,7 @@ func commandGet(cfg *ApiConfig, s string) error {
 			return errors.New(params.ErroMsg)
 		}
 		fmt.Printf("\n\nID: %s\nCreated At: %s\nName: %s\nApi Key: %s\n\n", params.Id, params.CreatedAt, params.Name, params.ApiKey)
-	case "feed":
+	case "feeds":
 		rsp, err := cfg.ApiClient.HttpClient.Get(fmt.Sprintf("%s/feeds", cfg.ApiKey))
 		if err != nil {
 			return err
@@ -56,7 +56,7 @@ func commandGet(cfg *ApiConfig, s string) error {
 		for _, feed := range params {
 			fmt.Printf("\n\nID: %s\nCreated At: %s\nUser ID: %s\nName: %s\nURL: %s\n\n", feed.Id, feed.CreatedAt, feed.UserId, feed.Name, feed.URL)
 		}
-	case "post":
+	case "posts":
 		req, err := http.NewRequest("GET", fmt.Sprintf("%s/posts", cfg.ApiClient.BaseURL), bytes.NewReader([]byte("")))
 		if err != nil {
 			return err
