@@ -30,7 +30,7 @@ func commandUpdate(cfg *ApiConfig, s string) error {
 		}
 
 		defer rsp.Body.Close()
-
+		
 		decoder := json.NewDecoder(rsp.Body)
 		params := api.User{}
 		if err := decoder.Decode(&params); err != nil {
