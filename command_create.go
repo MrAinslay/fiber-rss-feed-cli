@@ -92,7 +92,7 @@ func commandCreate(cfg *ApiConfig, s string) error {
 			return errors.New(params.ErrorMsg)
 		}
 
-		fmt.Printf("\n\nID: %s\nCreated At: %s\nUser ID: %s\nFeed ID: %s", params.Id, params.CreatedAt, params.UserId, params.FeedId)
+		fmt.Printf("\nID: %s\nCreated At: %s\nUser ID: %s\nFeed ID: %s\n", params.Id, params.CreatedAt, params.UserId, params.FeedId)
 	case "post-like":
 		if len(splitString) < 2 {
 			return errors.New("not enough arguments")
