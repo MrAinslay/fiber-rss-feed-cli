@@ -29,6 +29,8 @@ func commandUpdate(cfg *ApiConfig, s string) error {
 			return err
 		}
 
+		defer rsp.Body.Close()
+
 		decoder := json.NewDecoder(rsp.Body)
 		params := api.User{}
 		if err := decoder.Decode(&params); err != nil {

@@ -22,13 +22,15 @@ func commandGet(cfg *ApiConfig, s string) error {
 
 		req.Header.Set("Authorization", fmt.Sprintf("ApiKey %s", cfg.ApiKey))
 
-		resp, err := cfg.ApiClient.HttpClient.Do(req)
+		rsp, err := cfg.ApiClient.HttpClient.Do(req)
 		if err != nil {
 			return err
 		}
 
+		defer rsp.Body.Close()
+
 		params := api.User{}
-		decoder := json.NewDecoder(resp.Body)
+		decoder := json.NewDecoder(rsp.Body)
 		if err := decoder.Decode(&params); err != nil {
 			return err
 		}
@@ -42,6 +44,8 @@ func commandGet(cfg *ApiConfig, s string) error {
 		if err != nil {
 			return err
 		}
+
+		defer rsp.Body.Close()
 
 		decoder := json.NewDecoder(rsp.Body)
 
@@ -70,6 +74,8 @@ func commandGet(cfg *ApiConfig, s string) error {
 			return err
 		}
 
+		defer rsp.Body.Close()
+
 		decoder := json.NewDecoder(rsp.Body)
 		params := []api.Post{}
 		if err := decoder.Decode(&params); err != nil {
@@ -81,7 +87,7 @@ func commandGet(cfg *ApiConfig, s string) error {
 		}
 
 		for _, post := range params {
-			fmt.Printf("\n\nID: %s\nCreated At: %s\nTitle: %s\nURL: %s\nDescription: %s\nPublished At: %s\nFeed ID: %s\n", post.Id, post.CreatedAt, post.Title, post.URL, post.Description, post.PublishedAt, post.FeedID)
+			fmt.Printf("\n\nID: %s\nCreated At: %s\nTitle: %s\nURL: %s\nDescription: %s\nPublished At: %s\nFeed ID: %s\n\n", post.Id, post.CreatedAt, post.Title, post.URL, post.Description, post.PublishedAt, post.FeedID)
 		}
 	case "feed-follows":
 		req, err := http.NewRequest("GET", fmt.Sprintf("%s/feed-follows", cfg.ApiClient.BaseURL), bytes.NewReader([]byte("")))
@@ -95,6 +101,8 @@ func commandGet(cfg *ApiConfig, s string) error {
 		if err != nil {
 			return err
 		}
+
+		defer rsp.Body.Close()
 
 		decoder := json.NewDecoder(rsp.Body)
 		params := []api.Feed{}
@@ -122,6 +130,8 @@ func commandGet(cfg *ApiConfig, s string) error {
 			return err
 		}
 
+		defer rsp.Body.Close()
+
 		decoder := json.NewDecoder(rsp.Body)
 		params := []api.Post{}
 		if err := decoder.Decode(&params); err != nil {
@@ -133,7 +143,7 @@ func commandGet(cfg *ApiConfig, s string) error {
 		}
 
 		for _, post := range params {
-			fmt.Printf("\n\nID: %s\nCreated At: %s\nTitle: %s\nURL: %s\nDescription: %s\nPublished At: %s\nFeed ID: %s\n", post.Id, post.CreatedAt, post.Title, post.URL, post.Description, post.PublishedAt, post.FeedID)
+			fmt.Printf("\n\nID: %s\nCreated At: %s\nTitle: %s\nURL: %s\nDescription: %s\nPublished At: %s\nFeed ID: %s\n\n", post.Id, post.CreatedAt, post.Title, post.URL, post.Description, post.PublishedAt, post.FeedID)
 		}
 	case "feed-id":
 		if len(splitString) < 2 {
@@ -144,6 +154,8 @@ func commandGet(cfg *ApiConfig, s string) error {
 		if err != nil {
 			return err
 		}
+
+		defer rsp.Body.Close()
 
 		decoder := json.NewDecoder(rsp.Body)
 		params := api.Feed{}

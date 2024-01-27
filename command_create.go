@@ -23,6 +23,8 @@ func commandCreate(cfg *ApiConfig, s string) error {
 			return err
 		}
 
+		defer rsp.Body.Close()
+
 		decoder := json.NewDecoder(rsp.Body)
 		params := api.User{}
 		if err := decoder.Decode(&params); err != nil {
@@ -50,6 +52,8 @@ func commandCreate(cfg *ApiConfig, s string) error {
 		if err != nil {
 			return err
 		}
+
+		defer rsp.Body.Close()
 
 		decoder := json.NewDecoder(rsp.Body)
 		params := api.Feed{}
@@ -82,6 +86,8 @@ func commandCreate(cfg *ApiConfig, s string) error {
 			return err
 		}
 
+		defer rsp.Body.Close()
+
 		decoder := json.NewDecoder(rsp.Body)
 		params := api.FeedFollow{}
 		if err := decoder.Decode(&params); err != nil {
@@ -92,7 +98,7 @@ func commandCreate(cfg *ApiConfig, s string) error {
 			return errors.New(params.ErrorMsg)
 		}
 
-		fmt.Printf("\nID: %s\nCreated At: %s\nUser ID: %s\nFeed ID: %s\n", params.Id, params.CreatedAt, params.UserId, params.FeedId)
+		fmt.Printf("\nID: %s\nCreated At: %s\nUser ID: %s\nFeed ID: %s\n\n", params.Id, params.CreatedAt, params.UserId, params.FeedId)
 	case "post-like":
 		if len(splitString) < 2 {
 			return errors.New("not enough arguments")
@@ -113,6 +119,8 @@ func commandCreate(cfg *ApiConfig, s string) error {
 			return err
 		}
 
+		defer rsp.Body.Close()
+
 		decoder := json.NewDecoder(rsp.Body)
 		params := api.PostLike{}
 		if err := decoder.Decode(&params); err != nil {
@@ -123,7 +131,7 @@ func commandCreate(cfg *ApiConfig, s string) error {
 			return errors.New(params.ErrorMsg)
 		}
 
-		fmt.Printf("\n\nID: %s\nCreated At: %s\nUser ID: %s\nFeed ID: %s", params.Id, params.CreatedAt, params.UserId, params.PostId)
+		fmt.Printf("\n\nID: %s\nCreated At: %s\nUser ID: %s\nFeed ID: %s\n\n", params.Id, params.CreatedAt, params.UserId, params.PostId)
 	}
 
 	return nil

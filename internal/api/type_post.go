@@ -12,7 +12,7 @@ type Post struct {
 	Title       string    `json:"updated_at"`
 	URL         string    `json:"url"`
 	Description string    `json:"description"`
-	PublishedAt time.Time `json:"published_at"`
+	PublishedAt string    `json:"published_at"`
 	FeedID      uuid.UUID `json:"feed_id"`
 	ErrorMsg    string    `json:"error"`
 }

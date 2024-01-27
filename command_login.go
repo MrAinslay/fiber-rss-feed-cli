@@ -26,6 +26,8 @@ func commandLogin(cfg *ApiConfig, s string) error {
 		return err
 	}
 
+	defer rsp.Body.Close()
+
 	if params.ErroMsg != "" {
 		return errors.New(params.ErroMsg)
 	}
