@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"log"
 	"net/http"
 	"strings"
 
@@ -36,7 +35,7 @@ func commandGet(cfg *ApiConfig, s string) error {
 		if params.ErroMsg != "" {
 			return errors.New(params.ErroMsg)
 		}
-		log.Printf("\n\nID: %s\nCreated At: %s\nName: %s\nApi Key: %s\n\n", params.Id, params.CreatedAt, params.Name, params.ApiKey)
+		fmt.Printf("\n\nID: %s\nCreated At: %s\nName: %s\nApi Key: %s\n\n", params.Id, params.CreatedAt, params.Name, params.ApiKey)
 	case "feed":
 		rsp, err := cfg.ApiClient.HttpClient.Get(fmt.Sprintf("%s/feeds", cfg.ApiKey))
 		if err != nil {
@@ -55,7 +54,7 @@ func commandGet(cfg *ApiConfig, s string) error {
 		}
 
 		for _, feed := range params {
-			log.Printf("\n\nID: %s\nCreated At: %s\nURL: %s\nName: %s\n\n", feed.Id, feed.CreatedAt, feed.Name, feed.URL)
+			fmt.Printf("\n\nID: %s\nCreated At: %s\nUser ID: %s\nName: %s\nURL: %s\n\n", feed.Id, feed.CreatedAt, feed.UserId, feed.Name, feed.URL)
 		}
 	case "post":
 		req, err := http.NewRequest("GET", fmt.Sprintf("%s/posts", cfg.ApiClient.BaseURL), bytes.NewReader([]byte("")))
@@ -81,7 +80,7 @@ func commandGet(cfg *ApiConfig, s string) error {
 		}
 
 		for _, post := range params {
-			log.Printf("\n\nID: %s\nCreated At: %s\nTitle: %s\nURL: %s\nDescription: %s\nPublished At: %s\nFeed ID: %s\n", post.Id, post.CreatedAt, post.Title, post.URL, post.Description, post.PublishedAt, post.FeedID)
+			fmt.Printf("\n\nID: %s\nCreated At: %s\nTitle: %s\nURL: %s\nDescription: %s\nPublished At: %s\nFeed ID: %s\n", post.Id, post.CreatedAt, post.Title, post.URL, post.Description, post.PublishedAt, post.FeedID)
 		}
 	case "feed-follows":
 		req, err := http.NewRequest("GET", fmt.Sprintf("%s/feed-follows", cfg.ApiClient.BaseURL), bytes.NewReader([]byte("")))
@@ -107,7 +106,7 @@ func commandGet(cfg *ApiConfig, s string) error {
 		}
 
 		for _, feed := range params {
-			log.Printf("\n\nID: %s\nCreated At: %s\nURL: %s\nName: %s\n\n", feed.Id, feed.CreatedAt, feed.Name, feed.URL)
+			fmt.Printf("\n\nID: %s\nCreated At: %s\nURL: %s\nName: %s\n\n", feed.Id, feed.CreatedAt, feed.Name, feed.URL)
 		}
 	case "post-likes":
 		req, err := http.NewRequest("GET", fmt.Sprintf("%s/post-likes", cfg.ApiClient.BaseURL), bytes.NewReader([]byte("")))
@@ -133,7 +132,7 @@ func commandGet(cfg *ApiConfig, s string) error {
 		}
 
 		for _, post := range params {
-			log.Printf("\n\nID: %s\nCreated At: %s\nTitle: %s\nURL: %s\nDescription: %s\nPublished At: %s\nFeed ID: %s\n", post.Id, post.CreatedAt, post.Title, post.URL, post.Description, post.PublishedAt, post.FeedID)
+			fmt.Printf("\n\nID: %s\nCreated At: %s\nTitle: %s\nURL: %s\nDescription: %s\nPublished At: %s\nFeed ID: %s\n", post.Id, post.CreatedAt, post.Title, post.URL, post.Description, post.PublishedAt, post.FeedID)
 		}
 	case "feed-id":
 		if len(splitString) < 2 {
@@ -155,7 +154,7 @@ func commandGet(cfg *ApiConfig, s string) error {
 			return errors.New(params.ErrorMsg)
 		}
 
-		log.Printf("\n\nID: %s\nCreated At: %s\nURL: %s\nName: %s\n\n", params.Id, params.CreatedAt, params.Name, params.URL)
+		fmt.Printf("\n\nID: %s\nCreated At: %s\nURL: %s\nName: %s\n\n", params.Id, params.CreatedAt, params.Name, params.URL)
 	}
 	return nil
 }

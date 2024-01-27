@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"log"
 	"net/http"
 	"strings"
 
@@ -39,7 +38,7 @@ func commandDelete(cfg *ApiConfig, s string) error {
 			return errors.New(params.ErrorMsg)
 		}
 
-		log.Println(params.Message)
+		fmt.Println(params.Message)
 	case "feed":
 		if len(splitString) < 2 {
 			return errors.New("not enough arguments")
@@ -67,7 +66,7 @@ func commandDelete(cfg *ApiConfig, s string) error {
 			return errors.New(params.ErrorMsg)
 		}
 
-		log.Println(params.Message)
+		fmt.Println(params.Message)
 	case "feed_follow":
 		if len(splitString) < 2 {
 			return errors.New("not enough arguments")
@@ -95,7 +94,7 @@ func commandDelete(cfg *ApiConfig, s string) error {
 			return errors.New(params.ErrorMsg)
 		}
 
-		log.Printf(params.Message)
+		fmt.Printf(params.Message)
 	case "post-like":
 		if len(splitString) < 2 {
 			return errors.New("not enough arguments")
@@ -123,7 +122,7 @@ func commandDelete(cfg *ApiConfig, s string) error {
 			return errors.New(params.ErrorMsg)
 		}
 
-		log.Println(params.Message)
+		fmt.Println(params.Message)
 	}
 	return nil
 }
