@@ -89,7 +89,7 @@ func commandGet(cfg *ApiConfig, s string) error {
 			return err
 		}
 
-		req.Header.Set("Auhtorization", fmt.Sprintf("ApiKey %s", cfg.ApiKey))
+		req.Header.Set("Authorization", fmt.Sprintf("ApiKey %s", cfg.ApiKey))
 
 		rsp, err := cfg.ApiClient.HttpClient.Do(req)
 		if err != nil {
@@ -115,7 +115,7 @@ func commandGet(cfg *ApiConfig, s string) error {
 			return err
 		}
 
-		req.Header.Set("Auhtorization", fmt.Sprintf("ApiKey %s", cfg.ApiKey))
+		req.Header.Set("Authorization", fmt.Sprintf("ApiKey %s", cfg.ApiKey))
 
 		rsp, err := cfg.ApiClient.HttpClient.Do(req)
 		if err != nil {
