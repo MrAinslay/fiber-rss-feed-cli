@@ -29,6 +29,6 @@ func processNode(n *html.Node) {
 			}
 		}
 	default:
-		fmt.Println("")
+		fmt.Println(n.Data)
 	}
 }
