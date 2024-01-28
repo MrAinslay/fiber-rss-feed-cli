@@ -28,6 +28,7 @@ func commandGet(cfg *ApiConfig, s string) error {
 		}
 
 		defer rsp.Body.Close()
+		defer req.Body.Close()
 
 		params := api.User{}
 		decoder := json.NewDecoder(rsp.Body)
@@ -35,8 +36,8 @@ func commandGet(cfg *ApiConfig, s string) error {
 			return err
 		}
 
-		if params.ErroMsg != "" {
-			return errors.New(params.ErroMsg)
+		if params.ErrorMsg != "" {
+			return errors.New(params.ErrorMsg)
 		}
 		fmt.Printf("\nID: %s\nCreated At: %s\nName: %s\nApi Key: %s\n\n", params.Id, params.CreatedAt, params.Name, params.ApiKey)
 	case "feeds":
@@ -67,6 +68,7 @@ func commandGet(cfg *ApiConfig, s string) error {
 			return err
 		}
 
+		req.Header.Set("Content-Type", "application/json")
 		req.Header.Set("Authorization", fmt.Sprintf("ApiKey %s", cfg.ApiKey))
 
 		rsp, err := cfg.ApiClient.HttpClient.Do(req)
@@ -75,6 +77,7 @@ func commandGet(cfg *ApiConfig, s string) error {
 		}
 
 		defer rsp.Body.Close()
+		defer req.Body.Close()
 
 		decoder := json.NewDecoder(rsp.Body)
 		params := []api.Post{}
@@ -103,6 +106,7 @@ func commandGet(cfg *ApiConfig, s string) error {
 		}
 
 		defer rsp.Body.Close()
+		defer req.Body.Close()
 
 		decoder := json.NewDecoder(rsp.Body)
 		params := []api.Feed{}
@@ -131,6 +135,7 @@ func commandGet(cfg *ApiConfig, s string) error {
 		}
 
 		defer rsp.Body.Close()
+		defer req.Body.Close()
 
 		decoder := json.NewDecoder(rsp.Body)
 		params := []api.PostLike{}

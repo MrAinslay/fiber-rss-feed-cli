@@ -111,5 +111,10 @@ func getCommands() map[string]cliCommand {
 			description: "Delete user, feed, feed follow or post like\n(usage: delete user/feed/feed-follow/post-like <FEED_ID/FEED_FOLLOW_ID/POST_LIKE_ID>)",
 			callback:    commandDelete,
 		},
+		"read": {
+			name:        "read",
+			description: "Read a post\n(usage: read <POST_ID>)",
+			callback:    commandRead,
+		},
 	}
 }

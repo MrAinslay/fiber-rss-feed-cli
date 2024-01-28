@@ -13,6 +13,10 @@ import (
 func commandLogin(cfg *ApiConfig, s string) error {
 	splitString := strings.Split(s, " ")
 
+	if len(splitString) < 2 {
+		return errors.New("not enough arguments")
+	}
+
 	jsonBody := []byte(fmt.Sprintf(`{"name": "%s", "password": "%s"}`, splitString[0], splitString[1]))
 	bodyReader := bytes.NewReader(jsonBody)
 	rsp, err := cfg.ApiClient.HttpClient.Post(fmt.Sprintf("%s/login", cfg.ApiClient.BaseURL), "application/json", bodyReader)
@@ -28,8 +32,8 @@ func commandLogin(cfg *ApiConfig, s string) error {
 
 	defer rsp.Body.Close()
 
-	if params.ErroMsg != "" {
-		return errors.New(params.ErroMsg)
+	if params.ErrorMsg != "" {
+		return errors.New(params.ErrorMsg)
 	}
 
 	cfg.ApiKey = params.ApiKey

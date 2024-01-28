@@ -29,6 +29,7 @@ func commandDelete(cfg *ApiConfig, s string) error {
 		}
 
 		defer rsp.Body.Close()
+		defer req.Body.Close()
 
 		decoder := json.NewDecoder(rsp.Body)
 		params := api.DeleteMsg{}
@@ -59,6 +60,7 @@ func commandDelete(cfg *ApiConfig, s string) error {
 		}
 
 		defer rsp.Body.Close()
+		defer req.Body.Close()
 
 		decoder := json.NewDecoder(rsp.Body)
 		params := api.DeleteMsg{}
@@ -89,6 +91,7 @@ func commandDelete(cfg *ApiConfig, s string) error {
 		}
 
 		defer rsp.Body.Close()
+		defer req.Body.Close()
 
 		decoder := json.NewDecoder(rsp.Body)
 		params := api.DeleteMsg{}
@@ -119,6 +122,7 @@ func commandDelete(cfg *ApiConfig, s string) error {
 		}
 
 		defer rsp.Body.Close()
+		defer req.Body.Close()
 
 		decoder := json.NewDecoder(rsp.Body)
 		params := api.DeleteMsg{}

@@ -30,15 +30,16 @@ func commandUpdate(cfg *ApiConfig, s string) error {
 		}
 
 		defer rsp.Body.Close()
-		
+		defer req.Body.Close()
+
 		decoder := json.NewDecoder(rsp.Body)
 		params := api.User{}
 		if err := decoder.Decode(&params); err != nil {
 			return err
 		}
 
-		if params.ErroMsg != "" {
-			return errors.New(params.ErroMsg)
+		if params.ErrorMsg != "" {
+			return errors.New(params.ErrorMsg)
 		}
 
 		fmt.Printf("\n\nID: %s\nCreated At: %s\nName: %s\nApi Key: %s\n\n", params.Id, params.CreatedAt, params.Name, params.ApiKey)
