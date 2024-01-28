@@ -8,7 +8,11 @@ import (
 
 func ProcessArticleBody(n *html.Node) {
 	if n.Type == html.ElementNode && n.Data == "p" {
-		processNode(n)
+		processNode(n.FirstChild)
+	}
+
+	if n.Type == html.ElementNode && n.Data == "figure" {
+		processNode(n.FirstChild)
 	}
 
 	for c := n.FirstChild; c != nil; c = c.NextSibling {
@@ -17,5 +21,14 @@ func ProcessArticleBody(n *html.Node) {
 }
 
 func processNode(n *html.Node) {
-	fmt.Println("here", n.Data)
+	switch n.Data {
+	case "img":
+		for _, a := range n.Attr {
+			if a.Key == "src" {
+				fmt.Println("Image URL:", a.Val)
+			}
+		}
+	default:
+		fmt.Println("")
+	}
 }

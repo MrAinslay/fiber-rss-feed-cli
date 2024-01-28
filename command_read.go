@@ -28,7 +28,7 @@ func commandRead(cfg *ApiConfig, s string) error {
 		return errors.New(params.ErrorMsg)
 	}
 
-	htmlRsp, err := cfg.ApiClient.HttpClient.Get("https://scrapeme.live/shop/")
+	htmlRsp, err := cfg.ApiClient.HttpClient.Get(params.URL)
 	if err != nil {
 		return err
 	}
