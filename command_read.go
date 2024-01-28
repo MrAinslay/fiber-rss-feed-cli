@@ -4,11 +4,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io"
-	"log"
-	"strings"
 
 	"github.com/MrAinslay/fiber-rss-feed-cli/internal/api"
+	"github.com/MrAinslay/fiber-rss-feed-cli/internal/utils"
 	"golang.org/x/net/html"
 )
 
@@ -30,61 +28,19 @@ func commandRead(cfg *ApiConfig, s string) error {
 		return errors.New(params.ErrorMsg)
 	}
 
-	htmlRsp, err := cfg.ApiClient.HttpClient.Get(params.URL)
+	htmlRsp, err := cfg.ApiClient.HttpClient.Get("https://scrapeme.live/shop/")
 	if err != nil {
 		return err
 	}
 
 	defer htmlRsp.Body.Close()
 
-	body, err := io.ReadAll(htmlRsp.Body)
+	body, err := html.Parse(htmlRsp.Body)
 	if err != nil {
 		return err
 	}
 
-	log.Println(string(body))
-	parseAndShow(string(body))
+	utils.ProcessArticleBody(body)
 
 	return nil
-}
-
-func parseAndShow(text string) {
-
-	tkn := html.NewTokenizer(strings.NewReader(text))
-
-	var isTd bool
-	var n int
-
-	for {
-
-		tt := tkn.Next()
-
-		switch {
-
-		case tt == html.ErrorToken:
-			return
-
-		case tt == html.StartTagToken:
-
-			t := tkn.Token()
-			isTd = t.Data == "td"
-
-		case tt == html.TextToken:
-
-			t := tkn.Token()
-
-			if isTd {
-
-				fmt.Printf("%s ", t.Data)
-				n++
-			}
-
-			if isTd && n%3 == 0 {
-
-				fmt.Println()
-			}
-
-			isTd = false
-		}
-	}
 }
